@@ -1,8 +1,8 @@
 package com.example.newapp.di
 
-import com.example.newapp.repository.CatFactsRepository
-import com.example.newapp.repository.CatFactsRepositoryImpl
-import com.example.newapp.repository.api.CatFactsApi
+import com.example.newapp.repository.MovieRepository
+import com.example.newapp.repository.MovieRepositoryImpl
+import com.example.newapp.repository.api.ServiceApi
 import dagger.Module
 import dagger.Provides
 
@@ -10,6 +10,6 @@ import dagger.Provides
 class RepositoryModule {
 
     @Provides
-    fun providesCatFactsRepository(api: CatFactsApi): CatFactsRepository = CatFactsRepositoryImpl(api)
+    fun providesMoviesRepository(api: ServiceApi): MovieRepository = MovieRepositoryImpl(api)
 
 }

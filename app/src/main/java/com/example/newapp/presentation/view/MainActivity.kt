@@ -6,8 +6,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.example.newapp.R
-import com.example.newapp.presentation.model.CatFactsListState
-import com.example.newapp.presentation.viewmodel.CatFactsListViewModel
+import com.example.newapp.presentation.model.MovieListState
+import com.example.newapp.presentation.viewmodel.MovieListViewModel
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
@@ -16,17 +16,17 @@ class MainActivity : AppCompatActivity() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
-    private lateinit var viewModel: CatFactsListViewModel
+    private lateinit var viewModel: MovieListViewModel
 
-    private val stateObserver = Observer<CatFactsListState> { state ->
+    private val stateObserver = Observer<MovieListState> { state ->
         when (state) {
-            is CatFactsListState.Loading -> {
+            is MovieListState.Loading -> {
                 mainText.text = "Loading..."
             }
-            is CatFactsListState.Success -> {
-                mainText.text = state.data.first().text
+            is MovieListState.Success -> {
+                mainText.text = state.data.first().name
             }
-            is CatFactsListState.Error -> {
+            is MovieListState.Error -> {
                 mainText.text = state.errorMessage
             }
         }
@@ -35,11 +35,11 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         AndroidInjection.inject(this)
-        viewModel = ViewModelProviders.of(this, viewModelFactory).get(CatFactsListViewModel::class.java)
+        viewModel = ViewModelProviders.of(this, viewModelFactory).get(MovieListViewModel::class.java)
         observeViewModel()
         savedInstanceState?.let {
-            viewModel.loadCatFacts()
-        } ?: viewModel.loadCatFacts()
+            viewModel.loadMovies()
+        } ?: viewModel.loadMovies()
         setContentView(R.layout.activity_main)
     }
 

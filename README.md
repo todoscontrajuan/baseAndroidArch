@@ -5,7 +5,7 @@ This app makes a simple API call and shows the result. Probably something that s
 
 Base kotlin Android app usign:
 - Clean Architecture + MVVM
-- RxJava + Retrofit to call https://alexwohlbruck.github.io/cat-facts/ API
+- Retrofit + Coroutines to call https://howtodoandroid.com/ API (just a simple json with a list of movies)
 - Dagger 2
 - Architecture components (Viewmodel and LiveData)
 
