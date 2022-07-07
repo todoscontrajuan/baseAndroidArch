@@ -14,7 +14,6 @@ import javax.inject.Singleton
     ViewModelModule::class,
     ViewModelFactoryModule::class,
     ActivityModule::class,
-    UseCasesModule::class,
     RepositoryModule::class])
 interface AppComponent {
     fun inject(application: App)

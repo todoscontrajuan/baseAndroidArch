@@ -1,7 +1,7 @@
 package com.example.newapp.di
 
 import androidx.lifecycle.ViewModel
-import com.example.newapp.presentation.viewmodel.CatFactsListViewModel
+import com.example.newapp.presentation.viewmodel.MovieListViewModel
 import dagger.Binds
 import dagger.MapKey
 import dagger.Module
@@ -17,6 +17,6 @@ internal annotation class ViewModelKey(val value: KClass<out ViewModel>)
 abstract class ViewModelModule {
     @Binds
     @IntoMap
-    @ViewModelKey(CatFactsListViewModel::class)
-    abstract fun bindCatFactsListViewModel(viewModel: CatFactsListViewModel) : ViewModel
+    @ViewModelKey(MovieListViewModel::class)
+    abstract fun bindMovieListViewModel(viewModel: MovieListViewModel) : ViewModel
 }
