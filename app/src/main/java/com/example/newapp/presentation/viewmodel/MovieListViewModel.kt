@@ -6,9 +6,11 @@ import androidx.lifecycle.ViewModel
 import com.example.newapp.model.Movie
 import com.example.newapp.presentation.model.MovieListState
 import com.example.newapp.repository.MovieRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
 import javax.inject.Inject
 
+@HiltViewModel
 class MovieListViewModel @Inject constructor(private val repository: MovieRepository) : ViewModel() {
 
     val stateLiveData =  MutableLiveData<MovieListState>()

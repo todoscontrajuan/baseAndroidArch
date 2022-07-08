@@ -1,22 +1,20 @@
 package com.example.newapp.presentation.view
 
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import com.example.newapp.R
 import com.example.newapp.presentation.model.MovieListState
 import com.example.newapp.presentation.viewmodel.MovieListViewModel
-import dagger.android.AndroidInjection
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
-    private lateinit var viewModel: MovieListViewModel
+    private val viewModel by viewModels<MovieListViewModel>()
 
     private val stateObserver = Observer<MovieListState> { state ->
         when (state) {
@@ -34,8 +32,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        AndroidInjection.inject(this)
-        viewModel = ViewModelProviders.of(this, viewModelFactory).get(MovieListViewModel::class.java)
         observeViewModel()
         savedInstanceState?.let {
             viewModel.loadMovies()
