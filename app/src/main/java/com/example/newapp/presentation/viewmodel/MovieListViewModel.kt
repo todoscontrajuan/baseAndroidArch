@@ -35,8 +35,8 @@ class MovieListViewModel @Inject constructor(private val repository: MovieReposi
         }
     }
 
-    private fun onSuccess(catFactsList: List<Movie>) {
-        stateLiveData.value = MovieListState.Success(catFactsList)
+    private fun onSuccess(results: List<Movie>) {
+        stateLiveData.value = MovieListState.Success(results)
     }
 
     private fun onError(message: String) {

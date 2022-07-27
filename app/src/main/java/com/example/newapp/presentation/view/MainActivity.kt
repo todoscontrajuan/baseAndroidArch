@@ -7,32 +7,32 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.newapp.R
+import com.example.newapp.databinding.ActivityMainBinding
 import com.example.newapp.presentation.model.MovieListState
 import com.example.newapp.presentation.viewmodel.MovieListViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.activity_main.*
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private val viewModel by viewModels<MovieListViewModel>()
+    private lateinit var binding: ActivityMainBinding
+
     private lateinit var recyclerAdapter: CustomAdapter
 
     private val stateObserver = Observer<MovieListState> { state ->
         when (state) {
             is MovieListState.Loading -> {
-                progressIndicator.visibility = View.VISIBLE
+                binding.progressIndicator.visibility = View.VISIBLE
             }
             is MovieListState.Success -> {
-                progressIndicator.visibility = View.GONE
-                recyclerView.layoutManager = GridLayoutManager(applicationContext, 2)
+                binding.progressIndicator.visibility = View.GONE
+                binding.recyclerView.layoutManager = GridLayoutManager(applicationContext, 2)
                 recyclerAdapter = CustomAdapter(applicationContext, state.data)
-                recyclerView.adapter = recyclerAdapter
+                binding.recyclerView.adapter = recyclerAdapter
             }
             is MovieListState.Error -> {
-                progressIndicator.visibility = View.GONE
+                binding.progressIndicator.visibility = View.GONE
                 Log.e("BASE APP", state.errorMessage)
             }
         }
@@ -40,9 +40,11 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
         observeViewModel()
         viewModel.loadMovies()
-        setContentView(R.layout.activity_main)
     }
 
     private fun observeViewModel() {
