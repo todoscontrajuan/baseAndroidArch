@@ -3,7 +3,7 @@ package com.example.newapp.presentation.viewmodel
 import android.annotation.SuppressLint
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.newapp.model.Movie
+import com.example.newapp.model.MovieList
 import com.example.newapp.presentation.model.MovieListState
 import com.example.newapp.repository.MovieRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,13 +18,13 @@ class MovieListViewModel @Inject constructor(private val repository: MovieReposi
 
     fun loadMovies() {
         stateLiveData.value = MovieListState.Loading
-        getMovieList()
+        getPopularMovieList()
     }
 
     @SuppressLint("CheckResult")
-    private fun getMovieList() {
+    private fun getPopularMovieList() {
         job = CoroutineScope(Dispatchers.IO).launch {
-            val response = repository.getMovieList()
+            val response = repository.getPopularMovieList()
             withContext(Dispatchers.Main) {
                 if (response.isSuccessful) {
                     response.body()?.let { onSuccess(it) }
@@ -35,8 +35,8 @@ class MovieListViewModel @Inject constructor(private val repository: MovieReposi
         }
     }
 
-    private fun onSuccess(catFactsList: List<Movie>) {
-        stateLiveData.value = MovieListState.Success(catFactsList)
+    private fun onSuccess(results: MovieList) {
+        stateLiveData.value = MovieListState.Success(results)
     }
 
     private fun onError(message: String) {

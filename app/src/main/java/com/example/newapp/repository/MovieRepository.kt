@@ -1,8 +1,9 @@
 package com.example.newapp.repository
 
 import com.example.newapp.model.Movie
+import com.example.newapp.model.MovieList
 import retrofit2.Response
 
 interface MovieRepository {
-    suspend fun getMovieList() : Response<List<Movie>>
+    suspend fun getPopularMovieList() : Response<MovieList>
 }
