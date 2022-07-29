@@ -25,9 +25,9 @@ class CustomAdapter(private val context: Context, private val itemsList: List<Mo
         val itemsViewModel = itemsList[position]
 
         Glide.with(context)
-            .load(itemsViewModel.imageUrl)
+            .load(IMAGE_PREFIX + itemsViewModel.backdrop_path)
             .into(holder.imageView)
-        holder.textView.text = itemsViewModel.name
+        holder.textView.text = itemsViewModel.title
     }
 
     override fun getItemCount() = itemsList.count()
@@ -35,5 +35,9 @@ class CustomAdapter(private val context: Context, private val itemsList: List<Mo
     class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {
         val imageView: ImageView = itemView.findViewById(R.id.movieImage)
         val textView: TextView = itemView.findViewById(R.id.movieName)
+    }
+
+    companion object {
+        const val IMAGE_PREFIX = "https://image.tmdb.org/t/p/w500"
     }
 }

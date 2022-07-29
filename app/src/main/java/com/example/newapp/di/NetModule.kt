@@ -9,7 +9,7 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-private const val BASE_URL = "https://howtodoandroid.com"
+private const val BASE_URL = "https://api.themoviedb.org/3/"
 
 @Module
 @InstallIn(SingletonComponent::class)

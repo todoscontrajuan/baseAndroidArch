@@ -7,6 +7,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newapp.databinding.ActivityMainBinding
 import com.example.newapp.presentation.model.MovieListState
 import com.example.newapp.presentation.viewmodel.MovieListViewModel
@@ -27,8 +28,8 @@ class MainActivity : AppCompatActivity() {
             }
             is MovieListState.Success -> {
                 binding.progressIndicator.visibility = View.GONE
-                binding.recyclerView.layoutManager = GridLayoutManager(applicationContext, 2)
-                recyclerAdapter = CustomAdapter(applicationContext, state.data)
+                binding.recyclerView.layoutManager = LinearLayoutManager(this)
+                recyclerAdapter = CustomAdapter(this, state.data.results)
                 binding.recyclerView.adapter = recyclerAdapter
             }
             is MovieListState.Error -> {
